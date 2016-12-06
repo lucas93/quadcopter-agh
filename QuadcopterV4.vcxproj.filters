@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="IMU_files">
+      <UniqueIdentifier>{ba3c61fa-571c-45a4-bd50-ad16f1150cce}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="QuadcopterV4.ino" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EEPROM_variables.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PID.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RollPitchYaw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Led.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Buzzer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="__vm\.QuadcopterV4.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inv_mpu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inv_mpu_dmp_motion_driver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mpu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dmpKey.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dmpmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="I2Cdev.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OrientationSensor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Motors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RCReceiver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RCtoRPY.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SerialInputProcesser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Kalman.h">
+      <Filter>IMU_files</Filter>
+    </ClInclude>
+    <ClInclude Include="MPU6050.h">
+      <Filter>IMU_files</Filter>
+    </ClInclude>
+    <ClInclude Include="MPU6050_6Axis_MotionApps20.h">
+      <Filter>IMU_files</Filter>
+    </ClInclude>
+    <ClInclude Include="OrientationSensor2.h">
+      <Filter>IMU_files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EEPROM_variables.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PID.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RollPitchYaw.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Led.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Buzzer.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inv_mpu.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="I2Cdev.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inv_mpu_dmp_motion_driver.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mpu.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OrientationSensor.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Motors.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RCReceiver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RCtoRPY.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SerialInputProcesser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Kalman.cpp">
+      <Filter>IMU_files</Filter>
+    </ClCompile>
+    <ClCompile Include="MPU6050.cpp">
+      <Filter>IMU_files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
