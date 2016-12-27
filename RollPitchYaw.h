@@ -12,12 +12,12 @@
 class RollPitchYaw
 {
 public:
-	float roll, pitch, yaw, yawRate;
+	float roll, pitch, yaw, rollRate, pitchRate, yawRate;
 	
 
 	RollPitchYaw();
 	RollPitchYaw(const RollPitchYaw& other);
-	RollPitchYaw(float roll, float pitch, float yaw, float yawRate);
+	RollPitchYaw(float roll, float pitch, float yaw, float rollRate, float pitchRate, float yawRate);
 
 	RollPitchYaw& operator =(RollPitchYaw& other);
 	RollPitchYaw operator -(RollPitchYaw& other);
@@ -25,7 +25,7 @@ public:
 	static RollPitchYaw* get_current_RPY_pointer();
 	static RollPitchYaw* get_target_RPY_pointer();
 
-	void setRPY(const float roll, const float pitch, const float yaw, const float yawRate = 0.0);
+	void setRPY(const float roll, const float pitch, const float yaw, const float rollRate, const float pitchRate, const float yawRate);
 };
 
 

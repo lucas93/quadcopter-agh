@@ -31,8 +31,8 @@ bool OrientationSensorClass::setup()
 
 bool OrientationSensorClass::update_current_RPY()
 {
-	float ROLL, PITCH, YAW, YAWRATE;
-	OrientationSensor2::get_RPY(ROLL, PITCH, YAW, YAWRATE);
+	float ROLL, PITCH, YAW, ROLLRATE, PITCHRATE, YAWRATE;
+	OrientationSensor2::get_RPY(ROLL, PITCH, YAW, ROLLRATE, PITCHRATE, YAWRATE);
 
 	currentRPY->setRPY(ROLL, PITCH, YAW, YAWRATE); 
 	return true;

@@ -176,7 +176,7 @@ namespace OrientationSensor2
 		pinMode(LED_PIN, OUTPUT);
 	}
 
-	void get_RPY(float& ROLL, float& PITCH, float& YAW, float& YAWRATE)
+	void get_RPY(float& ROLL, float& PITCH, float& YAW, float& ROLLRATE, float& PITCHRATE, float& YAWRATE)
 	{
 		auto t = millis();
 		// read raw accel/gyro measurements from device
@@ -245,6 +245,8 @@ namespace OrientationSensor2
 		ROLL = kalAngleY;
 		PITCH = kalAngleX;
 		YAW = 0.0f;
+		ROLLRATE = gyroYrate;
+		PITCHRATE = gyroXrate;
 		YAWRATE = gyroZrate;
 	}
 
