@@ -19,12 +19,12 @@
 class ControllerClass
 {
 private:
-	PID rollPID, pitchPID, yawRatePID;
+	PID rollPID, pitchPID, rollRatePID, pitchRatePID, yawRatePID;
 	RollPitchYaw *currentRPY, *targetRPY;
 	bool *is_armed, *RC_is_connected;
 
-	float rollOutput, pitchOutput, yawRateOutput;		//P ID outputs
-	int maximumThrottleInput = 500;	// Throttle can account for maximum of 50% of maximum motor power
+	float rollOutput, pitchOutput, rollRateOutput, pitchRateOutput, yawRateOutput;		//PID outputs
+	int maximumThrottleOutput = 500;	// Throttle can account for maximum of 50% of maximum motor power
 	float LF_Throttle;		// negative pitch rotation, negative yawRate rotation
 	float RF_Throttle;		// negative pitch rotation, positive yawRate rotation
 	float RB_Throttle;		// positive pitch rotation, negative yawRate rotation
@@ -36,10 +36,20 @@ public:
 	float Td_Roll;
 	float windupIntegral_Roll;
 
+	float K_RollRate;
+	float Ti_RollRate;
+	float Td_RollRate;
+	float windupIntegral_RollRate;
+
 	float K_Pitch;
 	float Ti_Pitch;
 	float Td_Pitch;
 	float windupIntegral_Pitch;
+
+	float K_PitchRate;
+	float Ti_PitchRate;
+	float Td_PitchRate;
+	float windupIntegral_PitchRate;
 
 	float K_YawRate;
 	float Ti_YawRate;
