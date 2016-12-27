@@ -68,6 +68,7 @@ bool RCtoRPYClass::update_target_RPY()
 	r = constrain(r, -angle_max, angle_max);
 	p = constrain(p, -angle_max, angle_max);
 	yr = constrain(yr, -angle_rate_max, angle_rate_max);
+	yr = -yr;
 
 	target_RPY->setRPY(r, p, y, yr);
 	return true;
