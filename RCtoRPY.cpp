@@ -20,7 +20,7 @@ bool RCtoRPYClass::update_target_RPY()
 {
 	if (*RC_is_connected == false || *is_armed == false)		//throttle is below min or lost communication
 	{
-		target_RPY->setRPY(0, 0, 0, 0);	// so set targetRPY to zero to ensure quad is stedy
+		target_RPY->setRPY(0, 0, 0, 0, 0, 0);	// so set targetRPY to zero to ensure quad is stedy
 		return false;
 	}
 
@@ -43,8 +43,10 @@ bool RCtoRPYClass::update_target_RPY()
 	const int CH4 = RCReceiver.CH4;
 
 
-	float r, p, y, yr;		//roll, pitch, yaw, yawRate
-	y = 0;							//not calculating yaw
+	float r, p, y,rr, pr, yr;		//roll, pitch, yaw, yawRate
+	y = 0;	//not calculating yaw
+	rr = 0;	//not calculating rollRate
+	pr = 0;	//not calculating pitchRate
 
 	if (CH1 >= ch1Middle)			//roll is connected to ch1
 		r =static_cast<float>(map(CH1, ch1Middle, ch1Max, 0, angle_max));
@@ -70,6 +72,6 @@ bool RCtoRPYClass::update_target_RPY()
 	yr = constrain(yr, -angle_rate_max, angle_rate_max);
 	yr = -yr;
 
-	target_RPY->setRPY(r, p, y, yr);
+	target_RPY->setRPY(r, p, y, rr, pr, yr);
 	return true;
 }

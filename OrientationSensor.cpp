@@ -34,7 +34,7 @@ bool OrientationSensorClass::update_current_RPY()
 	float ROLL, PITCH, YAW, ROLLRATE, PITCHRATE, YAWRATE;
 	OrientationSensor2::get_RPY(ROLL, PITCH, YAW, ROLLRATE, PITCHRATE, YAWRATE);
 
-	currentRPY->setRPY(ROLL, PITCH, YAW, YAWRATE); 
+	currentRPY->setRPY(ROLL, PITCH, YAW, ROLLRATE, PITCHRATE, YAWRATE); 
 	return true;
 
 	static unsigned int c = 0; //cumulative number of successful MPU/DMP reads
@@ -75,6 +75,8 @@ bool OrientationSensorClass::update_current_RPY()
 			roll = roll > 0 ? roll - 180.0 : roll + 180.0;
 		float pitch = mympu.ypr[1];
 		float yaw = mympu.ypr[0];
+		float rollRate = mympu.gyro[2];
+		float pitchRate = mympu.gyro[1];
 		float yawRate = mympu.gyro[0];
 		pitch -= pitch_OFFSET;
 		roll -= roll_OFFSET;
@@ -84,7 +86,7 @@ bool OrientationSensorClass::update_current_RPY()
 		pitch *= -1.0;	// depends on Base Frame
 		yawRate *= -1.0;	// depends on Base Frame
 
-		currentRPY->setRPY(roll, pitch, yaw, yawRate);
+		currentRPY->setRPY(roll, pitch, yaw, rollRate, pitchRate, yawRate);
 	}
 	return true;
 }
