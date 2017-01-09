@@ -1,7 +1,3 @@
-// 
-// 
-// 
-
 #include "RCReceiver.h"
 #include "Motors.h"
 #include "Buzzer.h"

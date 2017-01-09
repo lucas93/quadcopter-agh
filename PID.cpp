@@ -5,7 +5,7 @@
 #include "PID.h"
 
 
-PID::PID(float &Input, float &Output, float &Setpoint, float &K, float &Ti, float &Td, float &windupIntegral, float T_ms) : T_s(T_ms/1000)
+PID::PID(float &Input, float &Output, float &Setpoint, float &K, float &Ki, float &Kd, float &windupIntegral, float T_ms) : T_s(T_ms/1000)
 {
 	previous_input = 0.0;
 	integral = 0.0;
@@ -15,12 +15,12 @@ PID::PID(float &Input, float &Output, float &Setpoint, float &K, float &Ti, floa
 	PID_setpoint = &Setpoint;
 
 	this->K = &K;
-	this->Ti = &Ti;
-	this->Td = &Td;
+	this->Ki = &Ki;
+	this->Kd = &Kd;
 
 	KP = K;
-	KI = Ti > 0.0 ? (K / Ti) : (0);
-	KD = K * Td;
+	KI = Ki;
+	KD = K * Kd;
 
 	windupGuard = &windupIntegral;
 }

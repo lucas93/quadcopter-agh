@@ -236,10 +236,6 @@ namespace OrientationSensor2
 		//	Serial.println(gz);
 		//#endif
 
-		// blink LED to indicate activity
-		blinkState = !blinkState;
-		digitalWrite(LED_PIN, blinkState);
-
 		//print_frequency();
 		//while (t + 2 > millis());
 		ROLL = kalAngleY;

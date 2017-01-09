@@ -23,7 +23,7 @@ private:
 	RollPitchYaw *currentRPY, *targetRPY;
 	bool *is_armed, *RC_is_connected;
 
-	float rollOutput, pitchOutput, rollRateOutput, pitchRateOutput, yawRateOutput;		//PID outputs
+	float rollAngleOutput, pitchAngleOutput, rollRateOutput, pitchRateOutput, yawRateOutput;		//PID outputs
 	int maximumThrottleOutput = 500;	// Throttle can account for maximum of 50% of maximum motor power
 	float LF_Throttle;		// negative pitch rotation, negative yawRate rotation
 	float RF_Throttle;		// negative pitch rotation, positive yawRate rotation

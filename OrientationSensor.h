@@ -18,8 +18,8 @@ class OrientationSensorClass
  private:
 	 RollPitchYaw *currentRPY = RollPitchYaw::get_current_RPY_pointer();
 	 int ret;
-	 float const roll_OFFSET = -0.73f;
-	 float const pitch_OFFSET = 1.3f;
+	 float const roll_OFFSET = 0.0f;
+	 float const pitch_OFFSET = 0.0f;
 
  public:
 	 bool setup();

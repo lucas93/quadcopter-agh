@@ -11,6 +11,11 @@ ControllerClass Controller;
 
 void ControllerClass::reset_PID_integrals()
 {
+	rollPID.integral_reset();
+	rollRatePID.integral_reset();
+	pitchPID.integral_reset();
+	pitchRatePID.integral_reset();
+	yawRatePID.integral_reset();
 }
 
 bool ControllerClass::setup(int T_ms)
@@ -45,12 +50,20 @@ bool ControllerClass::setup(int T_ms)
 	currentRPY = RollPitchYaw::get_current_RPY_pointer();
 	targetRPY = RollPitchYaw::get_target_RPY_pointer();
 
-	rollPID = PID(currentRPY->roll, rollOutput,
+	rollPID = PID(currentRPY->roll, rollAngleOutput,
 		targetRPY->roll, K_Roll, Ti_Roll, Td_Roll,
 		windupIntegral_Roll, static_cast<float>(T_ms));
-	pitchPID = PID(currentRPY->pitch, pitchOutput,
+	rollRatePID = PID(currentRPY->rollRate, rollRateOutput,
+		rollAngleOutput, K_RollRate, Ti_RollRate, Td_RollRate,
+		windupIntegral_RollRate, static_cast<float>(T_ms));
+
+	pitchPID = PID(currentRPY->pitch, pitchAngleOutput,
 		targetRPY->pitch, K_Pitch, Ti_Pitch, Td_Pitch,
 		windupIntegral_Pitch, static_cast<float>(T_ms));
+	pitchRatePID = PID(currentRPY->pitchRate, pitchRateOutput,
+		pitchAngleOutput, K_PitchRate, Ti_PitchRate, Td_PitchRate,
+		windupIntegral_PitchRate, static_cast<float>(T_ms));
+
 	yawRatePID = PID(currentRPY->yawRate, yawRateOutput,
 		targetRPY->yawRate, K_YawRate, Ti_YawRate, Td_YawRate,
 		windupIntegral_YawRate, static_cast<float>(T_ms));
@@ -96,6 +109,8 @@ void ControllerClass::control_loop()
 #else
 	rollPID.compute();
 	pitchPID.compute();
+	rollRatePID.compute();
+	pitchRatePID.compute();
 	yawRatePID.compute();
 #endif
 	int throttleOutput = map(TX_Throttle, RCReceiver.get_ThrottleMin(), RCReceiver.ch3Max, 0, maximumThrottleOutput);
@@ -107,22 +122,11 @@ void ControllerClass::control_loop()
 	auto tan_pitch_square = tan(pitch * DEG_TO_RAD) * tan(pitch * DEG_TO_RAD);
 	auto throttleGain = sqrt(tan_roll_square + tan_pitch_square + 1.0);
 
-	throttleOutput = double(throttleOutput) * throttleGain;
+	//throttleOutput = double(throttleOutput) * throttleGain;
 	throttleOutput = constrain(throttleOutput, 10, maximumThrottleOutput);		//to make sure throttle is in boundries <0,1%  :  50%>
 
-
-#define print_param(param) Serial.print(String("\t" #param " = ")) ; Serial.print(param) 
-#define println_param(param) Serial.print(String("\t" #param " = ")) ; Serial.println(param)
-
-
-	print_param(roll);
-	print_param(pitch);
-	print_param(rollOutput);
-	print_param(pitchOutput);
-	println_param(throttleOutput);
-
-#undef print_param()
-#undef println_param()
+	/*rollRateOutput = (rollAngleOutput - currentRPY->rollRate) * K_RollRate;
+	pitchRateOutput = (pitchAngleOutput - currentRPY->pitchRate) * K_PitchRate;*/
 
 	LF_Throttle += throttleOutput;
 	RF_Throttle += throttleOutput;
@@ -130,30 +134,44 @@ void ControllerClass::control_loop()
 	LB_Throttle += throttleOutput;
 
 	// PITCH
-	RB_Throttle -= pitchOutput;
-	LB_Throttle -= pitchOutput;
-	RF_Throttle += pitchOutput;
-	LF_Throttle += pitchOutput;
+	RB_Throttle -= pitchRateOutput;
+	LB_Throttle -= pitchRateOutput;
+	RF_Throttle += pitchRateOutput;
+	LF_Throttle += pitchRateOutput;
 
 	// ROLL
-	RF_Throttle -= rollOutput;
-	RB_Throttle -= rollOutput;
-	LF_Throttle += rollOutput;
-	LB_Throttle += rollOutput;
+	RF_Throttle -= rollRateOutput;
+	RB_Throttle -= rollRateOutput;
+	LF_Throttle += rollRateOutput;
+	LB_Throttle += rollRateOutput;
 
 	// YAW_RATE
-	LF_Throttle += yawRateOutput;
-	RB_Throttle += yawRateOutput;
-	RF_Throttle -= yawRateOutput;
-	LB_Throttle -= yawRateOutput;
+	LF_Throttle -= yawRateOutput;
+	RB_Throttle -= yawRateOutput;
+	RF_Throttle += yawRateOutput;
+	LB_Throttle += yawRateOutput;
 
 	//Motors.LF->set(0);
 	//Motors.RF->set(0);
 	//Motors.RB->set(0);
 	//Motors.LB->set(0);
+
+
 	Motors.LF->set(int(LF_Throttle + 0.5f));
 	Motors.RF->set(int(RF_Throttle + 0.5f));
 	Motors.RB->set(int(RB_Throttle + 0.5f));
 	Motors.LB->set(int(LB_Throttle + 0.5f));
 
+//#define print_param(param) Serial.print(String("\t" #param " = ")) ; Serial.print(param, 3) 
+//#define println_param(param) Serial.print(String("\t" #param " = ")) ; Serial.println(param)
+//
+//	print_param(rollAngleOutput);
+//	print_param(rollRateOutput);
+//	print_param(currentRPY->roll);
+//	print_param(currentRPY->rollRate);
+//	print_param(LF_Throttle);
+//	println_param(throttleOutput);
+//
+//#undef print_param()
+//#undef println_param()
 }

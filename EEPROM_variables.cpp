@@ -11,7 +11,7 @@ String const EEPROM_variablesClass::var_name[] = {
 
 	"K_Roll", "Ti_Roll", "Td_Roll", "windupIntegral_Roll",
 	"K_Pitch", "Ti_Pitch", "Td_Pitch", "windupIntegral_Pitch",
-	"K_YawRate", "Ti_YawRate", "Td_YawRate", "windupIntegral_YawRate"
+	"K_YawRate", "Ti_YawRate", "Td_YawRate", "windupIntegral_YawRate",
 
 	"K_RollRate", "Ti_RollRate", "Td_RollRate", "windupIntegral_RollRate",
 	"K_PitchRate", "Ti_PitchRate", "Td_PitchRate", "windupIntegral_PitchRate"

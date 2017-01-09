@@ -6,7 +6,16 @@
 
 RCtoRPYClass RCtoRPY;
 
+static float map(float value, float fromLow, float fromHigh, float toLow, float toHigh)
+{
+	if (fromLow == fromHigh)
+		return 0.0f;
 
+	float a = (toLow - toHigh) / (fromLow - fromHigh);
+	float b = toLow - a * fromLow;
+
+	return a * value + b;
+}
 
 bool RCtoRPYClass::setup()
 {
@@ -49,29 +58,31 @@ bool RCtoRPYClass::update_target_RPY()
 	pr = 0;	//not calculating pitchRate
 
 	if (CH1 >= ch1Middle)			//roll is connected to ch1
-		r =static_cast<float>(map(CH1, ch1Middle, ch1Max, 0, angle_max));
+		r = map(CH1, ch1Middle, ch1Max, 0, angle_max);
 	else
-		r =static_cast<float>(map(CH1, ch1Min, ch1Middle, -angle_max, 0));
+		r = map(CH1, ch1Min, ch1Middle, -angle_max, 0);
 
 	if (CH2 >= ch2Middle)			//pitch is connected to ch2
-		p =static_cast<float>(map(CH2, ch2Middle, ch2Max, 0, angle_max));
+		p = map(CH2, ch2Middle, ch2Max, 0, angle_max);
 	else
-		p =static_cast<float>(map(CH2, ch2Min, ch2Middle, -angle_max, 0));
+		p = map(CH2, ch2Min, ch2Middle, -angle_max, 0);
 
 	if (CH4 >= ch4Middle)			//yawRate is connected to ch4
-		yr =static_cast<float>(map(CH4, ch4Middle, ch4Max, 0, angle_rate_max));
+		yr = map(CH4, ch4Middle, ch4Max, 0, angle_rate_max);
 	else
-		yr =static_cast<float>(map(CH4, ch4Min, ch4Middle, -angle_rate_max, 0));
+		yr = map(CH4, ch4Min, ch4Middle, -angle_rate_max, 0);
 
 	r *= -1.0;	// dependent on base frame
 	p *= -1.0;	// dependent on base frame
+	yr *= -1.0;	// dependent on base frame
 
 	//make sure angles are in boundries <-ANGLE_MAX; ANGLE_MAX>
 	r = constrain(r, -angle_max, angle_max);
 	p = constrain(p, -angle_max, angle_max);
 	yr = constrain(yr, -angle_rate_max, angle_rate_max);
-	yr = -yr;
 
 	target_RPY->setRPY(r, p, y, rr, pr, yr);
 	return true;
 }
+
+

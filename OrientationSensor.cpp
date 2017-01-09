@@ -18,7 +18,7 @@ static void swap(T& first, T& second)
 
 bool OrientationSensorClass::setup()
 {
-	OrientationSensor2::setup(); return true;
+	/*OrientationSensor2::setup(); return true;*/
 
 	Wire.begin();
 
@@ -31,11 +31,11 @@ bool OrientationSensorClass::setup()
 
 bool OrientationSensorClass::update_current_RPY()
 {
-	float ROLL, PITCH, YAW, ROLLRATE, PITCHRATE, YAWRATE;
+	/*float ROLL, PITCH, YAW, ROLLRATE, PITCHRATE, YAWRATE;
 	OrientationSensor2::get_RPY(ROLL, PITCH, YAW, ROLLRATE, PITCHRATE, YAWRATE);
 
-	currentRPY->setRPY(ROLL, PITCH, YAW, ROLLRATE, PITCHRATE, YAWRATE); 
-	return true;
+	currentRPY->setRPY(ROLL - 0.81, PITCH - 0.15, YAW, ROLLRATE, PITCHRATE, YAWRATE); 
+	return true;*/
 
 	static unsigned int c = 0; //cumulative number of successful MPU/DMP reads
 	static unsigned int np = 0; //cumulative number of MPU/DMP reads that brought no packet back
@@ -78,13 +78,16 @@ bool OrientationSensorClass::update_current_RPY()
 		float rollRate = mympu.gyro[2];
 		float pitchRate = mympu.gyro[1];
 		float yawRate = mympu.gyro[0];
-		pitch -= pitch_OFFSET;
-		roll -= roll_OFFSET;
 
 		swap(roll, pitch);	// depends on Base Frame
+		swap(rollRate, pitchRate);
+				
 		roll *= -1.0;	// depends on Base Frame
 		pitch *= -1.0;	// depends on Base Frame
 		yawRate *= -1.0;	// depends on Base Frame
+
+		pitch -= pitch_OFFSET;
+		roll -= roll_OFFSET;
 
 		currentRPY->setRPY(roll, pitch, yaw, rollRate, pitchRate, yawRate);
 	}

@@ -15,7 +15,7 @@ class PID
 	 float *PID_output;
 	 float *PID_setpoint;
 
-	 float *K, *Ti, *Td;
+	 float *K, *Ki, *Kd;
 	 float KP, KI, KD;
 	 float *windupGuard;
 

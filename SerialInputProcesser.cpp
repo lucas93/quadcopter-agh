@@ -29,111 +29,37 @@ void SerialInputProcesserClass::proccess_serial_if_any_and_unarmed()
 
 	if (size < 2)	return;		// too few arguments
 
+#define POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(PARAMETER) if (input[1] == #PARAMETER)\
+	{\
+		var_pointer = &(Controller.PARAMETER);\
+		var_enum = EEPROM_variables.PARAMETER;\
+	}\
+
 	//FIRST WORD IN INPUT
 	if (input[0] == "set")		// set parameter value
 	{
 		if (size == 3 && input[2].toFloat() >= 0.0)
 		{
-			if (input[1] == "K_Roll")
-			{
-				var_pointer = &(Controller.K_Roll);
-				var_enum = EEPROM_variables.K_Roll;
-			}
-			if (input[1] == "K_RollRate")
-			{
-				var_pointer = &(Controller.K_RollRate);
-				var_enum = EEPROM_variables.K_RollRate;
-			}
-			else if (input[1] == "K_Pitch")
-			{
-				var_pointer = &(Controller.K_Pitch);
-				var_enum = EEPROM_variables.K_Pitch;
-			}
-			else if (input[1] == "K_PitchRate")
-			{
-				var_pointer = &(Controller.K_PitchRate);
-				var_enum = EEPROM_variables.K_PitchRate;
-			}
-			else if (input[1] == "K_YawRate")
-			{
-				var_pointer = &(Controller.K_YawRate);
-				var_enum = EEPROM_variables.K_YawRate;
-			}
-			else if (input[1] == "Ti_Roll")
-			{
-				var_pointer = &(Controller.Ti_Roll);
-				var_enum = EEPROM_variables.Ti_Roll;
-			}
-			else if (input[1] == "Ti_RollRate")
-			{
-				var_pointer = &(Controller.Ti_RollRate);
-				var_enum = EEPROM_variables.Ti_RollRate;
-			}
-			else if (input[1] == "Ti_Pitch")
-			{
-				var_pointer = &(Controller.Ti_Pitch);
-				var_enum = EEPROM_variables.Ti_Pitch;
-			}
-			else if (input[1] == "Ti_PitchRate")
-			{
-				var_pointer = &(Controller.Ti_PitchRate);
-				var_enum = EEPROM_variables.Ti_PitchRate;
-			}
-			else if (input[1] == "Ti_YawRate")
-			{
-				var_pointer = &(Controller.Ti_YawRate);
-				var_enum = EEPROM_variables.Ti_YawRate;
-			}
-			else if (input[1] == "Td_Roll")
-			{
-				var_pointer = &(Controller.Td_Roll);
-				var_enum = EEPROM_variables.Td_Roll;
-			}
-			else if (input[1] == "Td_RollRate")
-			{
-				var_pointer = &(Controller.Td_RollRate);
-				var_enum = EEPROM_variables.Td_RollRate;
-			}
-			else if (input[1] == "Td_Pitch")
-			{
-				var_pointer = &(Controller.Td_Pitch);
-				var_enum = EEPROM_variables.Td_Pitch;
-			}
-			else if (input[1] == "Td_PitchRate")
-			{
-				var_pointer = &(Controller.Td_PitchRate);
-				var_enum = EEPROM_variables.Td_PitchRate;
-			}
-			else if (input[1] == "Td_YawRate")
-			{
-				var_pointer = &(Controller.Td_YawRate);
-				var_enum = EEPROM_variables.Td_YawRate;
-			}
-			else if (input[1] == "windupIntegral_Roll")
-			{
-				var_pointer = &(Controller.windupIntegral_Roll);
-				var_enum = EEPROM_variables.windupIntegral_Roll;
-			}
-			else if (input[1] == "windupIntegral_RollRate")
-			{
-				var_pointer = &(Controller.windupIntegral_RollRate);
-				var_enum = EEPROM_variables.windupIntegral_RollRate;
-			}
-			else if (input[1] == "windupIntegral_Pitch")
-			{
-				var_pointer = &(Controller.windupIntegral_Pitch);
-				var_enum = EEPROM_variables.windupIntegral_Pitch;
-			}
-			else if (input[1] == "windupIntegral_PitchRate")
-			{
-				var_pointer = &(Controller.windupIntegral_PitchRate);
-				var_enum = EEPROM_variables.windupIntegral_PitchRate;
-			}
-			else if (input[1] == "windupIntegral_YawRate")
-			{
-				var_pointer = &(Controller.windupIntegral_YawRate);
-				var_enum = EEPROM_variables.windupIntegral_YawRate;
-			}
+			POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(K_Roll)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(K_RollRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(K_Pitch)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(K_PitchRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(K_YawRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Ti_Roll)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Ti_RollRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Ti_Pitch)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Ti_PitchRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Ti_YawRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Td_Roll)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Td_RollRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Td_Pitch)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Td_PitchRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Td_YawRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(windupIntegral_Roll)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(windupIntegral_RollRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(windupIntegral_Pitch)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(windupIntegral_PitchRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(windupIntegral_YawRate)
 			else
 			{
 				Serial.println("ERROR setting parameter!!");
@@ -157,106 +83,28 @@ void SerialInputProcesserClass::proccess_serial_if_any_and_unarmed()
 	{
 		if (size == 2)
 		{
-			if (input[1] == "K_Roll")
-			{
-				var_pointer = &(Controller.K_Roll);
-				var_enum = EEPROM_variables.K_Roll;
-			}
-			if (input[1] == "K_RollRate")
-			{
-				var_pointer = &(Controller.K_RollRate);
-				var_enum = EEPROM_variables.K_RollRate;
-			}
-			else if (input[1] == "K_Pitch")
-			{
-				var_pointer = &(Controller.K_Pitch);
-				var_enum = EEPROM_variables.K_Pitch;
-			}
-			else if (input[1] == "K_PitchRate")
-			{
-				var_pointer = &(Controller.K_PitchRate);
-				var_enum = EEPROM_variables.K_PitchRate;
-			}
-			else if (input[1] == "K_YawRate")
-			{
-				var_pointer = &(Controller.K_YawRate);
-				var_enum = EEPROM_variables.K_YawRate;
-			}
-			else if (input[1] == "Ti_Roll")
-			{
-				var_pointer = &(Controller.Ti_Roll);
-				var_enum = EEPROM_variables.Ti_Roll;
-			}
-			else if (input[1] == "Ti_RollRate")
-			{
-				var_pointer = &(Controller.Ti_RollRate);
-				var_enum = EEPROM_variables.Ti_RollRate;
-			}
-			else if (input[1] == "Ti_Pitch")
-			{
-				var_pointer = &(Controller.Ti_Pitch);
-				var_enum = EEPROM_variables.Ti_Pitch;
-			}
-			else if (input[1] == "Ti_PitchRate")
-			{
-				var_pointer = &(Controller.Ti_PitchRate);
-				var_enum = EEPROM_variables.Ti_PitchRate;
-			}
-			else if (input[1] == "Ti_YawRate")
-			{
-				var_pointer = &(Controller.Ti_YawRate);
-				var_enum = EEPROM_variables.Ti_YawRate;
-			}
-			else if (input[1] == "Td_Roll")
-			{
-				var_pointer = &(Controller.Td_Roll);
-				var_enum = EEPROM_variables.Td_Roll;
-			}
-			else if (input[1] == "Td_RollRate")
-			{
-				var_pointer = &(Controller.Td_RollRate);
-				var_enum = EEPROM_variables.Td_RollRate;
-			}
-			else if (input[1] == "Td_Pitch")
-			{
-				var_pointer = &(Controller.Td_Pitch);
-				var_enum = EEPROM_variables.Td_Pitch;
-			}
-			else if (input[1] == "Td_PitchRate")
-			{
-				var_pointer = &(Controller.Td_PitchRate);
-				var_enum = EEPROM_variables.Td_PitchRate;
-			}
-			else if (input[1] == "Td_YawRate")
-			{
-				var_pointer = &(Controller.Td_YawRate);
-				var_enum = EEPROM_variables.Td_YawRate;
-			}
-			else if (input[1] == "windupIntegral_Roll")
-			{
-				var_pointer = &(Controller.windupIntegral_Roll);
-				var_enum = EEPROM_variables.windupIntegral_Roll;
-			}
-			else if (input[1] == "windupIntegral_RollRate")
-			{
-				var_pointer = &(Controller.windupIntegral_RollRate);
-				var_enum = EEPROM_variables.windupIntegral_RollRate;
-			}
-			else if (input[1] == "windupIntegral_Pitch")
-			{
-				var_pointer = &(Controller.windupIntegral_Pitch);
-				var_enum = EEPROM_variables.windupIntegral_Pitch;
-			}
-			else if (input[1] == "windupIntegral_PitchRate")
-			{
-				var_pointer = &(Controller.windupIntegral_PitchRate);
-				var_enum = EEPROM_variables.windupIntegral_PitchRate;
-			}
-			else if (input[1] == "windupIntegral_YawRate")
-			{
-				var_pointer = &(Controller.windupIntegral_YawRate);
-				var_enum = EEPROM_variables.windupIntegral_YawRate;
-			}
+			
+
+			POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(K_Roll)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(K_RollRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(K_Pitch)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(K_PitchRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(K_YawRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Ti_Roll)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Ti_RollRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Ti_Pitch)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Ti_PitchRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Ti_YawRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Td_Roll)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Td_RollRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Td_Pitch)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Td_PitchRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(Td_YawRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(windupIntegral_Roll)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(windupIntegral_RollRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(windupIntegral_Pitch)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(windupIntegral_PitchRate)
+			else POINT_ON_PARAMETER_IF_IT_IS_GIVEN_WITH_INPUT(windupIntegral_YawRate)
 			else
 			{
 				Serial.println("ERROR getting parameter!!!");
