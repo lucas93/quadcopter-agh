@@ -27,8 +27,8 @@ PID::PID(float &Input, float &Output, float &Setpoint, float &K, float &Ki, floa
 void PID::compute()
 {
 	float error = *PID_setpoint - *PID_input;
-	integral = constrain(integral + error * T_s, -*windupGuard, *windupGuard);
-	float derivative = (*PID_input - previous_input) / T_s;	//derivative is negative to substract it in pid loop
+	integral = constrain(integral + error , -*windupGuard, *windupGuard);
+	float derivative = (*PID_input - previous_input) ;	//derivative is negative to substract it in pid loop
 
 	*PID_output = KP * error + KI * integral + KD * derivative;
 

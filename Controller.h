@@ -31,29 +31,29 @@ private:
 	float LB_Throttle;		// positive pitch rotation, positive yawRate rotation
 
 public:
-	float K_Roll;
-	float Ti_Roll;
-	float Td_Roll;
+	float KP_Roll;
+	float KI_Roll;
+	float KD_Roll;
 	float windupIntegral_Roll;
 
-	float K_RollRate;
-	float Ti_RollRate;
-	float Td_RollRate;
+	float KP_RollRate;
+	float KI_RollRate;
+	float KD_RollRate;
 	float windupIntegral_RollRate;
 
-	float K_Pitch;
-	float Ti_Pitch;
-	float Td_Pitch;
+	float KP_Pitch;
+	float KI_Pitch;
+	float KD_Pitch;
 	float windupIntegral_Pitch;
 
-	float K_PitchRate;
-	float Ti_PitchRate;
-	float Td_PitchRate;
+	float KP_PitchRate;
+	float KI_PitchRate;
+	float KD_PitchRate;
 	float windupIntegral_PitchRate;
 
-	float K_YawRate;
-	float Ti_YawRate;
-	float Td_YawRate;
+	float KP_YawRate;
+	float KI_YawRate;
+	float KD_YawRate;
 	float windupIntegral_YawRate;
 
 	void reset_PID_integrals();

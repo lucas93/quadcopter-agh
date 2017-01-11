@@ -9,12 +9,12 @@ String const EEPROM_variablesClass::var_name[] = {
 	"ch5Min", "ch5Max",
 	"ch6Min", "ch6Max",
 
-	"K_Roll", "Ti_Roll", "Td_Roll", "windupIntegral_Roll",
-	"K_Pitch", "Ti_Pitch", "Td_Pitch", "windupIntegral_Pitch",
-	"K_YawRate", "Ti_YawRate", "Td_YawRate", "windupIntegral_YawRate",
+	"KP_Roll", "KI_Roll", "KD_Roll", "windupIntegral_Roll",
+	"KP_Pitch", "KI_Pitch", "KD_Pitch", "windupIntegral_Pitch",
+	"KP_YawRate", "KI_YawRate", "KD_YawRate", "windupIntegral_YawRate",
 
-	"K_RollRate", "Ti_RollRate", "Td_RollRate", "windupIntegral_RollRate",
-	"K_PitchRate", "Ti_PitchRate", "Td_PitchRate", "windupIntegral_PitchRate"
+	"KP_RollRate", "KI_RollRate", "KD_RollRate", "windupIntegral_RollRate",
+	"KP_PitchRate", "KI_PitchRate", "KD_PitchRate", "windupIntegral_PitchRate"
 };
 
 

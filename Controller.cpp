@@ -20,29 +20,29 @@ void ControllerClass::reset_PID_integrals()
 
 bool ControllerClass::setup(int T_ms)
 {
-	K_Roll = EEPROM_variables.load(EEPROM_variables.K_Roll);
-	Ti_Roll = EEPROM_variables.load(EEPROM_variables.Ti_Roll);
-	Td_Roll = EEPROM_variables.load(EEPROM_variables.Td_Roll);
+	KP_Roll = EEPROM_variables.load(EEPROM_variables.KP_Roll);
+	KI_Roll = EEPROM_variables.load(EEPROM_variables.KI_Roll);
+	KD_Roll = EEPROM_variables.load(EEPROM_variables.KD_Roll);
 	windupIntegral_Roll = EEPROM_variables.load(EEPROM_variables.windupIntegral_Roll);
 
-	K_RollRate = EEPROM_variables.load(EEPROM_variables.K_RollRate);
-	Ti_RollRate = EEPROM_variables.load(EEPROM_variables.Ti_RollRate);
-	Td_RollRate = EEPROM_variables.load(EEPROM_variables.Td_RollRate);
+	KP_RollRate = EEPROM_variables.load(EEPROM_variables.KP_RollRate);
+	KI_RollRate = EEPROM_variables.load(EEPROM_variables.KI_RollRate);
+	KD_RollRate = EEPROM_variables.load(EEPROM_variables.KD_RollRate);
 	windupIntegral_RollRate = EEPROM_variables.load(EEPROM_variables.windupIntegral_RollRate);
 
-	K_Pitch = EEPROM_variables.load(EEPROM_variables.K_Pitch);
-	Ti_Pitch = EEPROM_variables.load(EEPROM_variables.Ti_Pitch);
-	Td_Pitch = EEPROM_variables.load(EEPROM_variables.Td_Pitch);
+	KP_Pitch = EEPROM_variables.load(EEPROM_variables.KP_Pitch);
+	KI_Pitch = EEPROM_variables.load(EEPROM_variables.KI_Pitch);
+	KD_Pitch = EEPROM_variables.load(EEPROM_variables.KD_Pitch);
 	windupIntegral_Pitch = EEPROM_variables.load(EEPROM_variables.windupIntegral_Pitch);
 
-	K_PitchRate = EEPROM_variables.load(EEPROM_variables.K_PitchRate);
-	Ti_PitchRate = EEPROM_variables.load(EEPROM_variables.Ti_PitchRate);
-	Td_PitchRate = EEPROM_variables.load(EEPROM_variables.Td_PitchRate);
+	KP_PitchRate = EEPROM_variables.load(EEPROM_variables.KP_PitchRate);
+	KI_PitchRate = EEPROM_variables.load(EEPROM_variables.KI_PitchRate);
+	KD_PitchRate = EEPROM_variables.load(EEPROM_variables.KD_PitchRate);
 	windupIntegral_PitchRate = EEPROM_variables.load(EEPROM_variables.windupIntegral_PitchRate);
 
-	K_YawRate = EEPROM_variables.load(EEPROM_variables.K_YawRate);
-	Ti_YawRate = EEPROM_variables.load(EEPROM_variables.Ti_YawRate);
-	Td_YawRate = EEPROM_variables.load(EEPROM_variables.Td_YawRate);
+	KP_YawRate = EEPROM_variables.load(EEPROM_variables.KP_YawRate);
+	KI_YawRate = EEPROM_variables.load(EEPROM_variables.KI_YawRate);
+	KD_YawRate = EEPROM_variables.load(EEPROM_variables.KD_YawRate);
 	windupIntegral_YawRate = EEPROM_variables.load(EEPROM_variables.windupIntegral_YawRate);
 
 	is_armed = Motors.get_arm_indicator_pointer();
@@ -51,21 +51,21 @@ bool ControllerClass::setup(int T_ms)
 	targetRPY = RollPitchYaw::get_target_RPY_pointer();
 
 	rollPID = PID(currentRPY->roll, rollAngleOutput,
-		targetRPY->roll, K_Roll, Ti_Roll, Td_Roll,
+		targetRPY->roll, KP_Roll, KI_Roll, KD_Roll,
 		windupIntegral_Roll, static_cast<float>(T_ms));
 	rollRatePID = PID(currentRPY->rollRate, rollRateOutput,
-		rollAngleOutput, K_RollRate, Ti_RollRate, Td_RollRate,
+		rollAngleOutput, KP_RollRate, KI_RollRate, KD_RollRate,
 		windupIntegral_RollRate, static_cast<float>(T_ms));
 
 	pitchPID = PID(currentRPY->pitch, pitchAngleOutput,
-		targetRPY->pitch, K_Pitch, Ti_Pitch, Td_Pitch,
+		targetRPY->pitch, KP_Pitch, KI_Pitch, KD_Pitch,
 		windupIntegral_Pitch, static_cast<float>(T_ms));
 	pitchRatePID = PID(currentRPY->pitchRate, pitchRateOutput,
-		pitchAngleOutput, K_PitchRate, Ti_PitchRate, Td_PitchRate,
+		pitchAngleOutput, KP_PitchRate, KI_PitchRate, KD_PitchRate,
 		windupIntegral_PitchRate, static_cast<float>(T_ms));
 
 	yawRatePID = PID(currentRPY->yawRate, yawRateOutput,
-		targetRPY->yawRate, K_YawRate, Ti_YawRate, Td_YawRate,
+		targetRPY->yawRate, KP_YawRate, KI_YawRate, KD_YawRate,
 		windupIntegral_YawRate, static_cast<float>(T_ms));
 
 	*is_armed = false;
@@ -103,9 +103,9 @@ void ControllerClass::control_loop()
 	}
 
 #if OPEN_LOOP_CONTROL
-	rollOutput = K_Roll * targetRPY->roll;
-	pitchOutput = K_Pitch * targetRPY->pitch;
-	yawRateOutput = K_YawRate * targetRPY->yawRate;
+	rollOutput = KP_Roll * targetRPY->roll;
+	pitchOutput = KP_Pitch * targetRPY->pitch;
+	yawRateOutput = KP_YawRate * targetRPY->yawRate;
 #else
 	rollPID.compute();
 	pitchPID.compute();
@@ -125,8 +125,8 @@ void ControllerClass::control_loop()
 	//throttleOutput = double(throttleOutput) * throttleGain;
 	throttleOutput = constrain(throttleOutput, 10, maximumThrottleOutput);		//to make sure throttle is in boundries <0,1%  :  50%>
 
-	/*rollRateOutput = (rollAngleOutput - currentRPY->rollRate) * K_RollRate;
-	pitchRateOutput = (pitchAngleOutput - currentRPY->pitchRate) * K_PitchRate;*/
+	/*rollRateOutput = (rollAngleOutput - currentRPY->rollRate) * KP_RollRate;
+	pitchRateOutput = (pitchAngleOutput - currentRPY->pitchRate) * KP_PitchRate;*/
 
 	LF_Throttle += throttleOutput;
 	RF_Throttle += throttleOutput;
